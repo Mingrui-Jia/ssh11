@@ -2,13 +2,18 @@ package com.angular.service;
 
 import java.util.List;
 
-import com.angular.entity.Favor;
 
 public interface IRateManager {
 
-	public void saveFavor(Favor favor);
-	public boolean checkFavor(Favor favor);
-	public List<String> findFavoriteBookByUser(String username);
-	public List<String> findUserByFavoriteBook(String bookid);
-	public void deleteFavor(Favor favor);
+	List<String> findRatedBookByUser(String username);
+
+	List<String> findUserByRatedBook(String bookid);
+
+	void updateRate(String bid, String uid, int ratevalue);
+
+	void saveRate(String bid, String uid, int ratevalue);
+
+	boolean checkRate(String bid, String uid);
+
+
 }

@@ -26,9 +26,12 @@ public class RateDAO implements IRateDAO{
 	@Override
 	@Transactional
 //	update的时候在controller里面调用这个方法
-	public void setRate(ratePK ratePK, double ratevalue) {
+	public void updateRate(String bid, String uid, int ratevalue) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
+		ratePK ratePK = new ratePK();
+		ratePK.setBid(bid);
+		ratePK.setUid(uid);
 		Rate rate=(Rate)s.get(Rate.class, ratePK);
 		rate.setRate(ratevalue);
 		rate.setRateDateTime(new Date());
@@ -40,12 +43,12 @@ public class RateDAO implements IRateDAO{
 	@Override
 	@Transactional
 //	到时候打包传进来？或者传pk。时间就用当前时间
-	public void saveRate(ratePK ratePK, double ratevalue) {
+	public void saveRate(String bid, String uid, int ratevalue) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
 		Rate rate = new Rate();
-		rate.setBid(ratePK.getBid());
-		rate.setUid(ratePK.getUid());
+		rate.setBid(bid);
+		rate.setUid(uid);
 		rate.setRate(ratevalue);
 		rate.setRateDateTime(new Date());
 		s.save(rate);
@@ -53,38 +56,32 @@ public class RateDAO implements IRateDAO{
 		s.close();
 	}
 	
-	@Override
-	@Transactional
-//	到时候打包传进来？或者传pk。时间就用当前时间
-	public void saveRate(Rate rate) {
-		Session s=sessionFactory.openSession();
-		s.beginTransaction();
-		s.save(rate);
-		s.getTransaction().commit();
-		s.close();
-	}
+//	@Override
+//	@Transactional
+////	到时候打包传进来？或者传pk。时间就用当前时间
+//	public void saveRate(Rate rate) {
+//		Session s=sessionFactory.openSession();
+//		s.beginTransaction();
+//		s.save(rate);
+//		s.getTransaction().commit();
+//		s.close();
+//	}
 	
-	@Override
-	@Transactional
-	public void deleteRate(Rate rate) {
-		Session s=sessionFactory.openSession();
-		s.beginTransaction();
-		s.delete(rate);
-		s.getTransaction().commit();
-		s.close();
-		
-	}
+
 //	return1表示这个book在rate表中存在
 //	这里似乎加一个rate的PK比较好，再看
 	@Override
-	public boolean checkRate(Rate rate) {
+	public boolean checkRate(String bid, String uid) {
 		// TODO Auto-generated method stub
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-		Rate rate1=(Rate)s.get(Favor.class, rate);
-		
+		ratePK ratePK = new ratePK();
+		ratePK.setBid(bid);
+		ratePK.setUid(uid);
+		Rate rate=(Rate)s.get(Rate.class, ratePK);
+	
 		s.getTransaction().commit();
-		return(rate1!=null);
+		return(rate!=null);
 	}
 	
 

@@ -2,9 +2,7 @@ package com.angular.service;
 
 import java.util.List;
 
-import com.angular.dao.IBookDAO;
 import com.angular.dao.IFavorDAO;
-import com.angular.entity.Book;
 import com.angular.entity.Favor;
 
 public class FavorManager implements IFavorManager {
@@ -35,7 +33,7 @@ public class FavorManager implements IFavorManager {
 	@Override
 	public boolean checkFavor(Favor favor) {
 		// TODO Auto-generated method stub
-		return false;
+		return favorDao.checkFavor(favor);
 	}
 	
 	@Override

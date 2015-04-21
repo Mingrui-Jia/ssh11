@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.angular.entity.Book;
 import com.angular.entity.Favor;
+import com.angular.entity.Rate;
 import com.angular.entity.User;
 import com.angular.service.IBookManager;
 import com.angular.service.IFavorManager;
+import com.angular.service.IRateManager;
 import com.angular.service.IUserManager;
 
 
@@ -29,6 +31,15 @@ public class bookController {
 	private IBookManager bookManager;
 	@Resource(name="favorManager")
 	private IFavorManager favorManager;
+	@Resource(name="rateManager")
+	private IRateManager rateManager;
+	
+//	4.21 17:00
+	@RequestMapping(value="/saveRate")
+	public String addRate( String bid,  String uid,  int ratevalue) {
+		rateManager.saveRate(bid, uid, ratevalue);
+		return "/rateSuccess";
+	}
 
 //	4.20 18:16 用{username}做参数方便调试
 	
@@ -108,33 +119,13 @@ public class bookController {
 	
 	@RequestMapping(value="/deleteFavor/{bookID}/{username}")
 	public String deleteFavor(@PathVariable String bookID,@PathVariable String username,HttpServletRequest request){
-		if(username.equals("null")){
-			UserController uc= new UserController();
-			return uc.login();
-		}
-		Book book= new Book();
-		book.setId(bookID);
-		if(!bookManager.checkBook(book)){
-			
-			bookManager.saveBook(book);
-		}else{
-			System.out.println("book already exists");
-		}
+
 		Favor favor=new Favor();
 		favor.setBookID(bookID);
 		favor.setUserID(username);
-		if(favorManager.checkFavor(favor)){
-			return "book/already";
-		}else{
-			System.out.println(favor.getBookID());
-			System.out.println(favor.getUserID());
-			favorManager.saveFavor(favor);
-			HttpSession session=request.getSession();
-			session.setAttribute("bookID", bookID);
-			return "book/confirm";
-		}
 		
-		//return new ModelAndView("/book/"+bookID,"id",bookID);
+		favorManager.deleteFavor(favor);
+		return "book/confirm";
 	}
 	
 

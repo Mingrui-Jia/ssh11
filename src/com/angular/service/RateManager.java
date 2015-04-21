@@ -2,52 +2,41 @@ package com.angular.service;
 
 import java.util.List;
 
-import com.angular.dao.IBookDAO;
-import com.angular.dao.IFavorDAO;
-import com.angular.entity.Book;
-import com.angular.entity.Favor;
+import com.angular.dao.IRateDAO;
 
-public class RateManager implements IFavorManager {
 
-	private IFavorDAO favorDao;
-	public IFavorDAO getFavorDao() {
-		return favorDao;
+public class RateManager implements IRateManager {
+
+	private IRateDAO rateDao;
+	public IRateDAO getRateDao() {
+		return rateDao;
 	}
 
-	public void setFavorDao(IFavorDAO favorDao) {
-		this.favorDao = favorDao;
+	public void setRateDao(IRateDAO rateDao) {
+		this.rateDao = rateDao;
 	}
 
-	@Override
-	public void saveFavor(Favor favor) {
-		// TODO Auto-generated method stub
-		favorDao.saveFavor(favor);
-		
-	}
 	
 	@Override
-	public void deleteFavor(Favor favor) {
-		// TODO Auto-generated method stub
-		favorDao.deleteFavor(favor);
-		
+	public List<String> findRatedBookByUser(String username) {
+		return rateDao.findRatedBookByUser(username);
 	}
-
 	@Override
-	public boolean checkFavor(Favor favor) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<String> findUserByRatedBook(String bookid) {
+		return rateDao.findUserByRatedBook(bookid);
 	}
-	
 	@Override
-	public List<String> findFavoriteBookByUser(String username) {
-		return favorDao.findFavoriteBookByUser(username);
+	public void updateRate(String bid, String uid, int ratevalue) {
+		rateDao.updateRate(bid, uid, ratevalue);
 	}
-	
 	@Override
-	public List<String> findUserByFavoriteBook(String bookid) {
-		return favorDao.findUserByFavoriteBook(bookid);
+	public void saveRate(String bid, String uid, int ratevalue) {
+		rateDao.saveRate(bid, uid, ratevalue);
 	}
-
+	@Override
+	public boolean checkRate(String bid, String uid) {
+		return rateDao.checkRate(bid, uid);
+	}
 	
 	
 

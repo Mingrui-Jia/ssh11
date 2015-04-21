@@ -42,6 +42,7 @@ public class FavorDAO implements IFavorDAO{
 		s.close();
 		
 	}
+//	return1表示这个book在favor表中存在
 	@Override
 	public boolean checkFavor(Favor favor) {
 		// TODO Auto-generated method stub

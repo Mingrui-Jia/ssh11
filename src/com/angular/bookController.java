@@ -106,5 +106,36 @@ public class bookController {
 		//return new ModelAndView("/book/"+bookID,"id",bookID);
 	}
 	
+	@RequestMapping(value="/deleteFavor/{bookID}/{username}")
+	public String deleteFavor(@PathVariable String bookID,@PathVariable String username,HttpServletRequest request){
+		if(username.equals("null")){
+			UserController uc= new UserController();
+			return uc.login();
+		}
+		Book book= new Book();
+		book.setId(bookID);
+		if(!bookManager.checkBook(book)){
+			
+			bookManager.saveBook(book);
+		}else{
+			System.out.println("book already exists");
+		}
+		Favor favor=new Favor();
+		favor.setBookID(bookID);
+		favor.setUserID(username);
+		if(favorManager.checkFavor(favor)){
+			return "book/already";
+		}else{
+			System.out.println(favor.getBookID());
+			System.out.println(favor.getUserID());
+			favorManager.saveFavor(favor);
+			HttpSession session=request.getSession();
+			session.setAttribute("bookID", bookID);
+			return "book/confirm";
+		}
+		
+		//return new ModelAndView("/book/"+bookID,"id",bookID);
+	}
+	
 
 }

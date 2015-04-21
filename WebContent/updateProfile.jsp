@@ -6,14 +6,12 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register</title>
+<title>Update Profile</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
-function addUser(){
+function updateProfile(){
 	var form=document.forms[0];
-/* 	form.action="/ssh1/user/checkUserExist"; */
-	form.action="/ssh1/user/saveUser"; 
-/* 	form.action="/ssh1/user/updateProfile"; */
+	form.action="/ssh1/user/updateProfile";
 	form.method="get";
 	form.submit();
 	
@@ -30,10 +28,11 @@ function addUser(){
 		first name:<input type="text" name="firstName"><br>
 		last name:<input type="text" name="lastName"><br>
 		phone#:<input type="text" name="phoneNumber"><br>
-		<input type="button" value="add" onclick="addUser()"><br>
+		<input type="button" value="Update" onclick="updateProfile()"><br>
+		<!-- 这个调的是上面的function -->
 	</form>
 	</div>
-	<h2>add User</h2>
+	<h2>Update Profile</h2>
 
 
 </body>

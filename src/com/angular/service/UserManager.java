@@ -28,5 +28,11 @@ public class UserManager implements IUserManager {
 	public boolean checkUserExist(User user){
 		return userDao.checkUserExist(user);
 	}
+	
+	@Override
+	public void updateProfile(User user) {
+		
+		userDao.updateProfile(user);
+	}
 
 }

@@ -7,7 +7,7 @@ import com.angular.dao.IFavorDAO;
 import com.angular.entity.Book;
 import com.angular.entity.Favor;
 
-public class FavorManager implements IFavorManager {
+public class RateManager implements IFavorManager {
 
 	private IFavorDAO favorDao;
 	public IFavorDAO getFavorDao() {

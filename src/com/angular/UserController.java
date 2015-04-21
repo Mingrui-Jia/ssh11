@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.angular.entity.User;
-import com.angular.service.IUserManager;
-import com.angular.service.UserManager;
+import com.angular.entity.*;
+import com.angular.service.*;
+
 
 
 @Controller
@@ -22,6 +22,18 @@ import com.angular.service.UserManager;
 public class UserController {
 	@Resource(name="userManager")
 	private IUserManager userManager;
+	@Resource(name="followManager")
+	private IFollowManager followManager;
+	
+	@RequestMapping("/updateProfile")
+//	/{password}/{firstName}/{lastName}/{email}/{phoneNumber}
+	public String updateProfile(User user) {
+//		, @PathVariable String password, @PathVariable String firstName, @PathVariable String lastName, @PathVariable String email, @PathVariable String phoneNumber
+		userManager.updateProfile(user);
+		System.out.println("update success!");
+		return "/updateSuccess";
+	}
+	
 	
 	@RequestMapping("/checkUserExist")
 	public String checkUserExist(User user) {
@@ -33,7 +45,21 @@ public class UserController {
 		else return "/addUser";
 	}
 	
+	@RequestMapping(value="/follow/{follow}/{beingfollowed}")
+	public String follow(@PathVariable String follow, @PathVariable String beingfollowed) {
+		Follow f = new Follow(follow, beingfollowed);
+		followManager.saveFollow(f);
+		System.out.println("followSuccess");
+		return "/followSuccess";
+	}
 	
+	@RequestMapping("/unfollow/{follow}/{beingfollowed}")
+	public String unfollow(@PathVariable String follow, @PathVariable String beingfollowed) {
+		Follow f = new Follow(follow, beingfollowed);
+		followManager.deleteFollow(f);
+		System.out.println("unFollowSuccess");
+		return "/unfollowSuccess";
+	}	
 	@RequestMapping("/toSaveUser")
 	public String toSaveUser(){
 		return "/addUser";

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 @Entity
+@IdClass(value=ratePK.class)
 public class Rate implements Serializable{
 private String bid;
 private String uid;

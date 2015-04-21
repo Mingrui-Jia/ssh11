@@ -12,7 +12,7 @@
 <%
 String str=(String) session.getAttribute("currentUser");
 out.println(str);
-%>
+%> 
 </h2>
 </body>
 </html>

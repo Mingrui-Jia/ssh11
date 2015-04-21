@@ -1,5 +1,7 @@
 package com.angular.service;
 
+import java.util.List;
+
 import com.angular.dao.IBookDAO;
 import com.angular.dao.IFavorDAO;
 import com.angular.entity.Book;
@@ -22,14 +24,29 @@ public class FavorManager implements IFavorManager {
 		favorDao.saveFavor(favor);
 		
 	}
+	
+	@Override
+	public void deleteFavor(Favor favor) {
+		// TODO Auto-generated method stub
+		favorDao.saveFavor(favor);
+		
+	}
 
 	@Override
 	public boolean checkFavor(Favor favor) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	
+	@Override
+	public List<String> findFavoriteBookByUser(String username) {
+		return favorDao.findFavoriteBookByUser(username);
+	}
+	
+	@Override
+	public List<String> findUserByFavoriteBook(String bookid) {
+		return favorDao.findUserByFavoriteBook(bookid);
+	}
 
 	
 	

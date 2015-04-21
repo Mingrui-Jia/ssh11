@@ -1,5 +1,7 @@
 package com.angular;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,8 +29,27 @@ public class bookController {
 	private IBookManager bookManager;
 	@Resource(name="favorManager")
 	private IFavorManager favorManager;
+
+//	4.20 18:16 用{username}做参数方便调试
 	
+	@RequestMapping(value="/findFavoriteBookByUser/{username}")
+	public String findFavoriteBookByUser(@PathVariable String username){
+		List<String> books = favorManager.findFavoriteBookByUser(username);
+		for(String bookId : books) {
+			System.out.println(bookId);
+		}
+		return "/success";
+	}
 	
+//	也可以考虑加在UserController里面
+	@RequestMapping(value="/findUserByFavoriteBook/{bookid}")
+	public String findUserByFavoriteBook(@PathVariable String bookid){
+		List<String> users = favorManager.findUserByFavoriteBook(bookid);
+		for(String username : users) {
+			System.out.println(username);
+		}
+		return "/success";
+	}
 	
 	
 	@RequestMapping(value="/search",method=RequestMethod.GET)

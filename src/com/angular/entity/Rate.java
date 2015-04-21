@@ -1,12 +1,13 @@
 package com.angular.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 @Entity
-public class Rate {
+public class Rate implements Serializable{
 private String bid;
 private String uid;
 private double rate;

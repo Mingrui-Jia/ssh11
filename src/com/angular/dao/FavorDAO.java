@@ -2,8 +2,7 @@ package com.angular.dao;
 
 import java.util.*;
 
-import javax.persistence.Query;
-
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,15 +30,16 @@ public class FavorDAO implements IFavorDAO{
 		s.save(favor);
 		s.getTransaction().commit();
 		s.close();
-		
-//		
-//		sessionFactory.getCurrentSession().save(user);
-//		
-//		Session s=sessionFactory.getCurrentSession();
-//		s.beginTransaction();
-//		
-//		s.save(user);
-//		s.getTransaction().commit();
+	}
+	
+	@Override
+	@Transactional
+	public void deleteFavor(Favor favor) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		s.delete(favor);
+		s.getTransaction().commit();
+		s.close();
 		
 	}
 	@Override
@@ -53,20 +53,37 @@ public class FavorDAO implements IFavorDAO{
 		return(book1!=null);
 	}
 	
-//	public List<Movie> readAllMovies() {
-//		//select all instance of movie from class movie, not table movie
-//		//这里是javax的query language，不是sql
-//		Query query = em.createQuery("select movie from Movie movie");
-//		return (List<Movie>)query.getResultList();
-//		//query.getResultList()得到的是list of objects,cast成List<Movie>，return
-//	}
-//	
-	
-	public List<Book> findFavoriteBookByUser(User user) {
+//	4.20 20：28
+//	注意此处HQL和传递参数的格式，只能用hibernate的query，与EclipseLink中不同
+//	@RequestMapping(value="/findFavoriteBookByUser/{username}")
+//	favor.userID和favor.bookID要注意和数据库中的属性名字一致，注意大小写
+	@Override
+	public List<String> findFavoriteBookByUser(String userid) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-//		Query query = (Query) s.createQuery("select book from Book book");
-		return (List<Book>)((Query) s.createQuery("select book from Book book")).getResultList();
+		String hql = "select favor.bookID "
+				+ "from Favor favor "
+				+ "where favor.userID=" + "'"+userid+"'";
+		Query query = s.createQuery(hql);
+		return (List<String>)query.list();
+		
+//		List<String> bookIdList = new ArrayList();
+//		for (Book book : books) {
+//			bookIdList.add(book.getId());
+//		}
+//		
+//		return bookIdList;
+	}
+	
+	@Override
+	public List<String> findUserByFavoriteBook(String bookid) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		String hql = "select favor.userID "
+				+ "from Favor favor "
+				+ "where favor.bookID=" + "'"+bookid+"'";
+		Query query = s.createQuery(hql);
+		return (List<String>)query.list();
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 @Entity
-public class comment {
+public class Comment {
 private int id;
 private String bid;
 private String uid;
@@ -64,7 +64,7 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	comment other = (comment) obj;
+	Comment other = (Comment) obj;
 	if (bid == null) {
 		if (other.bid != null)
 			return false;
@@ -89,7 +89,7 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
-public comment(int id, String bid, String uid, String comment,
+public Comment(int id, String bid, String uid, String comment,
 		Date commentDateTime) {
 	super();
 	this.id = id;
@@ -98,7 +98,7 @@ public comment(int id, String bid, String uid, String comment,
 	this.comment = comment;
 	this.commentDateTime = commentDateTime;
 }
-public comment() {
+public Comment() {
 	super();
 	// TODO Auto-generated constructor stub
 }

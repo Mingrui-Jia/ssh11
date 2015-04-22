@@ -4,8 +4,10 @@ import com.angular.entity.Follow;
 
 public interface IFollowManager {
 
-	void saveFollow(Follow follow);
+	public void saveFollow(Follow follow);
 
-	void deleteFollow(Follow follow);
+	public void deleteFollow(Follow follow);
+
+	public boolean checkFollow(Follow follow);
 	
 }

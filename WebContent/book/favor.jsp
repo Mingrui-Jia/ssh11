@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>ebook4u</title>
+    <title>Starter Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
@@ -58,9 +58,17 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>The Username you typed in already exists.</h1>
-        <h2><a href="<%=request.getContextPath()%>/user/toSaveUser">Register</a></h2>
-        </div>
+      <%
+			String str1=(String) session.getAttribute("bookID");
+			
+			//String str = (String) session.getAttribute("currentUser");
+			
+			
+		%>
+		<div><h1>Hello <%=str %></h1></div>
+		<div><h2>You have successfully favored the book <%=str1 %></h2></div>
+		<div><h2>You can check it in your favorite list.</h2></div>
+             </div>
 
     </div><!-- /.container -->
 
@@ -72,31 +80,3 @@
      <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ebook4u</title>
-</head>
-<body>
-<h1>User Already Exist!</h1>
-<h2>
-<%
-String str=(String) session.getAttribute("currentUser");
-out.println(str);
-%>
-</h2>
-</body>
-</html> --%>

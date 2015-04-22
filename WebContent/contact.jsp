@@ -58,8 +58,10 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>The Username you typed in already exists.</h1>
-        <h2><a href="<%=request.getContextPath()%>/user/toSaveUser">Register</a></h2>
+        <h1>Contact</h1>
+        <h2>Mingrui Jia (jia.mi@husky.neu.edu)</h2>
+        <div></div>
+        <h2>Wenruo Wang(wang.wenr@husky.neu.edu)</h2>
         </div>
 
     </div><!-- /.container -->
@@ -76,27 +78,15 @@
 
 
 
-
-
-
-
-
-
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=GB18030"
+    pageEncoding="GB18030"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ebook4u</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>Insert title here</title>
 </head>
 <body>
-<h1>User Already Exist!</h1>
-<h2>
-<%
-String str=(String) session.getAttribute("currentUser");
-out.println(str);
-%>
-</h2>
+
 </body>
 </html> --%>

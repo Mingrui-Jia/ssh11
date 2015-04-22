@@ -11,9 +11,7 @@
 <script type="text/javascript">
 function addUser(){
 	var form=document.forms[0];
-/* 	form.action="/ssh1/user/checkUserExist"; */
 	form.action="/ssh1/user/saveUser"; 
-/* 	form.action="/ssh1/user/updateProfile"; */
 	form.method="get";
 	form.submit();
 	
@@ -34,7 +32,6 @@ function addUser(){
 	</form>
 	</div>
 	<h2>add User</h2>
-
-
+	<h3>If the username already exist, please type in again</h3>
 </body>
 </html>

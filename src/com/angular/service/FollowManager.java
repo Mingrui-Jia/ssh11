@@ -31,4 +31,10 @@ public class FollowManager implements IFollowManager {
 		
 	}
 	
+	@Override
+	public boolean checkFollow(Follow follow) {
+		System.out.println("manager");
+		return followDao.checkFollow(follow);
+	}
+	
 }

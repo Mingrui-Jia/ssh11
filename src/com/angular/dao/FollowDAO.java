@@ -40,6 +40,15 @@ public class FollowDAO implements IFollowDAO{
 		
 	}
 
-
+	@Override
+	public boolean checkFollow(Follow follow) {
+		// TODO Auto-generated method stub
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		Follow follow1=(Follow)s.get(Follow.class, follow);
+		
+		s.getTransaction().commit();
+		return(follow1!=null);
+	}
 
 }

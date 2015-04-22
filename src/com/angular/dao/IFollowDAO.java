@@ -8,4 +8,6 @@ public interface IFollowDAO {
 	public void follow(Follow follow);
 
 	public void unfollow(Follow follow);
+
+	public boolean checkFollow(Follow follow);
 }

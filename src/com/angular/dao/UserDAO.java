@@ -18,6 +18,7 @@ public class UserDAO implements IUserDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
 	@Override
 	@Transactional
 	public void saveUser(User user) {
@@ -27,37 +28,10 @@ public class UserDAO implements IUserDAO {
 		s.getTransaction().commit();
 		s.close();
 		
-//		
-//		sessionFactory.getCurrentSession().save(user);
-//		
-//		Session s=sessionFactory.getCurrentSession();
-//		s.beginTransaction();
-//		
-//		s.save(user);
-//		s.getTransaction().commit();
-		
-	}
-	@Override
-	@Transactional
-	public boolean checkUser(User user) {
-		Session s=sessionFactory.openSession();
-		s.beginTransaction();
-		
-		User user1= (User)s.load(User.class,user.getUserName());
-		s.getTransaction().commit();
-		
-//		System.out.println(user1.getUserName());
-//		System.out.println(user1.getPassword());
-//		System.out.println(user.getPassword());
-		if(user1.getPassword().equals(user.getPassword())){
-			return true;
-		}else{
-			return false;
-		}
-		
 	}
 	
 	@Override
+	@Transactional
 	public boolean checkUserExist(User user) {
 		// 检查输入的username是否存在
 		Session s=sessionFactory.openSession();
@@ -67,6 +41,25 @@ public class UserDAO implements IUserDAO {
 		s.getTransaction().commit();
 		return(user1!=null);
 	}
+	
+//	看username&password和数据库中的是否匹配
+	@Override
+	@Transactional
+	public boolean checkUser(User user) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		
+		User user1= (User)s.load(User.class,user.getUserName());
+		s.getTransaction().commit();
+		if(user1.getPassword().equals(user.getPassword())){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+
 	
 //	4.21 13：00
 	public void updateProfile(User user) {

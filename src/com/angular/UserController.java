@@ -38,7 +38,7 @@ public class UserController {
 		model.addAttribute("username", username);
 		return "/updateProfile";
 	}
-//	看看userDAO里面的方法改了没
+
 	@RequestMapping("/updateProfile/{username}")
 	public String updateProfile(User user,@PathVariable String username) {
 		System.out.println(user.getPassword());

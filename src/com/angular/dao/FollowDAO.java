@@ -30,13 +30,13 @@ public class FollowDAO implements IFollowDAO{
 		int user1following = user1.getFollowing();
 		user1following = user1following + 1;
 		user1.setFollowing(user1following);
-		s.save(user1);
+		s.update(user1);
 //		被follow的人
 		User user2 = (User)s.get(User.class, follow.getBeingFollowed());
 		int user2followed = user2.getFollowed();
 		user2followed = user2followed + 1;
 		user2.setFollowed(user2followed);
-		s.save(user2);
+		s.update(user2);
 		
 		s.getTransaction().commit();
 		s.close();
@@ -53,13 +53,13 @@ public class FollowDAO implements IFollowDAO{
 		int user1following = user1.getFollowing();
 		user1following = user1following - 1;
 		user1.setFollowing(user1following);
-		s.save(user1);
+		s.update(user1);
 //		被follow的人
 		User user2 = (User)s.get(User.class, follow.getBeingFollowed());
 		int user2followed = user2.getFollowed();
 		user2followed = user2followed - 1;
 		user2.setFollowed(user2followed);
-		s.save(user2);
+		s.update(user2);
 		
 		s.delete(follow);
 		s.getTransaction().commit();

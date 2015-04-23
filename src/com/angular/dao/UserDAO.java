@@ -1,9 +1,11 @@
 package com.angular.dao;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import com.angular.entity.User;
 
@@ -18,6 +20,52 @@ public class UserDAO implements IUserDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
+//	20150423-11:00
+	@Override
+	@Transactional
+//	±»Ë­follow
+	public List<String> findFollowedByUser(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		String hql = "select user.followed "
+				+ "from User user "
+				+ "where user.userName=" + "'"+username+"'";
+		Query query = s.createQuery(hql);
+		s.getTransaction().commit();
+		s.close();
+		return (List<String>)query.list();
+	}
+	
+//	20150423-11:00
+	@Override
+	@Transactional
+//	followµÄÈË
+	public List<String> findFollowingByUser(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		String hql = "select user.following "
+				+ "from User user "
+				+ "where user.userName=" + "'"+username+"'";
+		Query query = s.createQuery(hql);
+		s.getTransaction().commit();
+		s.close();
+		return (List<String>)query.list();
+	}
+	
+//	20150423-11:00
+	@Override
+	@Transactional
+	public User findUserByUsername(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		User user = (User) s.get(User.class, username);
+		s.getTransaction().commit();
+		s.close();
+		return user;
+	}
+	
+	
 	
 	@Override
 	@Transactional

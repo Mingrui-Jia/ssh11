@@ -5,8 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.angular.entity.Book;
-import com.angular.entity.Favor;
-import com.angular.entity.Rate;
-import com.angular.entity.User;
+import com.angular.entity.*;
+
 import com.angular.service.IBookManager;
+import com.angular.service.ICommentsManager;
 import com.angular.service.IFavorManager;
 import com.angular.service.IRateManager;
-import com.angular.service.IUserManager;
 
 
 @Controller
@@ -34,8 +30,16 @@ public class bookController {
 	private IFavorManager favorManager;
 	@Resource(name="rateManager")
 	private IRateManager rateManager;
-	@Resource(name="commentManager")
-	private ICommentManager commentManager;
+	@Resource(name="commentsManager")
+	private ICommentsManager commentsManager;
+	
+////	4.23 15:32
+//	@RequestMapping(value="")
+//	public String toCreateComment() {
+//		
+//	}
+	
+	
 	
 //	4.21 17:00
 	@RequestMapping(value="/saveRate")

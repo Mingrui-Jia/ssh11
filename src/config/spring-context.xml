@@ -69,16 +69,16 @@
 
 	</bean>
 	
-		<!-- For Comment -->
-	<bean id="commentDao" class="com.angular.dao.CommentDAO">
+		<!-- For Comments -->
+	<bean id="commentsDao" class="com.angular.dao.CommentsDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="commentManagerBase" class="com.angular.service.CommentManager">
-		<property name="commentDao" ref="commentDao"></property>
+	<bean id="commentsManagerBase" class="com.angular.service.CommentsManager">
+		<property name="commentsDao" ref="commentsDao"></property>
 	</bean>
 
-	<bean id="commentManager" parent="transactionBese">
-		<property name="target" ref="commentManagerBase"></property>
+	<bean id="commentsManager" parent="transactionBese">
+		<property name="target" ref="commentsManagerBase"></property>
 
 	</bean>
 	

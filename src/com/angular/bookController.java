@@ -34,6 +34,8 @@ public class bookController {
 	private IFavorManager favorManager;
 	@Resource(name="rateManager")
 	private IRateManager rateManager;
+	@Resource(name="commentManager")
+	private ICommentManager commentManager;
 	
 //	4.21 17:00
 	@RequestMapping(value="/saveRate")

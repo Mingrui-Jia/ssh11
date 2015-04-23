@@ -1,5 +1,6 @@
 package com.angular.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -7,7 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.angular.entity.Follow;
 import com.angular.entity.User;
+
+
 
 
 public class UserDAO implements IUserDAO {
@@ -22,36 +26,75 @@ public class UserDAO implements IUserDAO {
 	}
 	
 //	20150423-11:00
+//	20150423-14:36 revised
 	@Override
 	@Transactional
-//	被谁follow
+//	所有被谁follow
 	public List<String> findFollowedByUser(String username) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-		String hql = "select user.followed "
-				+ "from User user "
-				+ "where user.userName=" + "'"+username+"'";
-		Query query = s.createQuery(hql);
+//		得到follow实体的list，没有数字的ID，麻烦！
+		List<Follow> follows = new ArrayList<Follow>();
+		String hql1 = "select follow from Follow follow";
+		Query query1 = s.createQuery(hql1);
+		follows = (List<Follow>)query1.list();
+		List<String> resultsList = new ArrayList<String>();
+		for (Follow follow :follows) {
+			if (follow.getBeingFollowed().equals(username)) {
+				resultsList.add(username);
+			}
+		}
+		
 		s.getTransaction().commit();
-		s.close();
-		return (List<String>)query.list();
+
+		return resultsList;
 	}
 	
+//	//readAllMovies
+//	public List<Movie> readAllMovies() {
+//		//select all instance of movie from class movie, not table movie
+//		//这里是javax的query language，不是sql
+//		Query query = em.createQuery("select movie from Movie movie");
+//		return (List<Movie>)query.getResultList();
+//		//query.getResultList()得到的是list of objects,cast成List<Movie>，return
+//	}
+	
 //	20150423-11:00
+//	20150423-14:36 revised
 	@Override
 	@Transactional
-//	follow的人
+//	所有follow的人
 	public List<String> findFollowingByUser(String username) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-		String hql = "select user.following "
-				+ "from User user "
-				+ "where user.userName=" + "'"+username+"'";
-		Query query = s.createQuery(hql);
+//		得到follow实体的list，没有数字的ID，麻烦！
+		List<Follow> follows = new ArrayList<Follow>();
+		String hql1 = "select follow from Follow follow";
+		Query query1 = s.createQuery(hql1);
+		follows = (List<Follow>)query1.list();
+		List<String> resultsList = new ArrayList<String>();
+		for (Follow follow :follows) {
+			if (follow.getFollow().equals(username)) {
+				resultsList.add(username);
+			}
+		}
+		
 		s.getTransaction().commit();
-		s.close();
-		return (List<String>)query.list();
+
+		return resultsList;
 	}
+	
+//	public List<String> findFollowingByUser(String username) {
+//		Session s=sessionFactory.openSession();
+//		s.beginTransaction();
+//		String hql = "select user.following "
+//				+ "from User user "
+//				+ "where user.userName=" + "'"+username+"'";
+//		Query query = s.createQuery(hql);
+//		s.getTransaction().commit();
+//
+//		return (List<String>)query.list();
+//	}
 	
 //	20150423-11:00
 	@Override
@@ -61,7 +104,7 @@ public class UserDAO implements IUserDAO {
 		s.beginTransaction();
 		User user = (User) s.get(User.class, username);
 		s.getTransaction().commit();
-		s.close();
+
 		return user;
 	}
 	

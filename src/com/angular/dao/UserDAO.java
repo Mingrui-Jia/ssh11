@@ -41,7 +41,8 @@ public class UserDAO implements IUserDAO {
 		List<String> resultsList = new ArrayList<String>();
 		for (Follow follow :follows) {
 			if (follow.getBeingFollowed().equals(username)) {
-				resultsList.add(username);
+				System.out.println(follow.getFollow());
+				resultsList.add(follow.getFollow());
 			}
 		}
 		
@@ -75,7 +76,7 @@ public class UserDAO implements IUserDAO {
 		List<String> resultsList = new ArrayList<String>();
 		for (Follow follow :follows) {
 			if (follow.getFollow().equals(username)) {
-				resultsList.add(username);
+				resultsList.add(follow.getBeingFollowed());
 			}
 		}
 		

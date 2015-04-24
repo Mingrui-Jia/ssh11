@@ -1,5 +1,7 @@
 package com.angular.service;
 
+import java.util.List;
+
 import com.angular.dao.ICommentsDAO;
 
 public class CommentsManager implements ICommentsManager {
@@ -33,8 +35,12 @@ public class CommentsManager implements ICommentsManager {
 	public void updateComments(int id, String content) {
 		commentsDao.updateComments(id, content);
 	}
-
 	
+	@Override
+	public List<String> findCommentsByBook(String bookId) {
+		return commentsDao.findCommentsByBook(bookId);
+	}
+
 	
 
 }

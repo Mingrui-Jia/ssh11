@@ -2,6 +2,7 @@ package com.angular.dao;
 
 import java.util.*;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,26 @@ public class CommentsDAO implements ICommentsDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
+	public List<String> findCommentsByBook(String bookId) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+//		Book book = (Book) s.get(Book.class, bookId);
+		List<Comments> commentlList = new ArrayList<Comments>();
+		String hql = "select comments from Comments comments";
+		Query query = s.createQuery(hql);
+		commentlList = (List<Comments>)query.list();
+		List<String> resultsList = new ArrayList<String>();
+		for (Comments c :commentlList) {
+			if (c.getBid().equals(bookId)) {
+				System.out.println(c.getBid());
+				resultsList.add(c.getContent());
+			}
+		}
+		s.getTransaction().commit();
+		return resultsList;
+	}
+	
 	@Override
 	@Transactional
 	public void saveComments(String bid, String uid, String content) {

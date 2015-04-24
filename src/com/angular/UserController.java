@@ -48,6 +48,27 @@ public class UserController {
 		return "/accountInfo";
 	}
 	
+	@RequestMapping("/{username}/following")
+	public String findFollowing(@PathVariable String username, Model model){
+		List<String> followingList=userManager.findFollowingByUser(username);//username是follow别人的人
+		for(String follow : followingList){
+			System.out.println(follow);
+		}
+		System.out.println(username);
+		model.addAttribute("followingList", followingList);
+		return "/following";
+	}
+
+	@RequestMapping("/{username}/followed")
+	public String findFollowed(@PathVariable String username, Model model){
+		List<String> followedList=userManager.findFollowedByUser(username);//username是被人follow的人
+		for(String follow : followedList){
+			System.out.println(follow);
+		}
+		System.out.println(username);
+		model.addAttribute("followingList", followedList);
+		return "/followed";
+	}
 	
 //	@RequestMapping(value="/follow/{follow}/{beingfollowed}")
 //	public String follow(@PathVariable String follow, @PathVariable String beingfollowed) {
